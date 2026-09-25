@@ -1,0 +1,373 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!50!black,citecolor=blue!50!black}
+\usepackage{enumitem}
+\usepackage{booktabs}
+
+\definecolor{defcol}{HTML}{2A6F8F}
+\definecolor{thmcol}{HTML}{6B4FA0}
+\definecolor{excol}{HTML}{2E7D4F}
+\definecolor{warncol}{HTML}{C24A1E}
+\definecolor{boxbg}{HTML}{F4F6F8}
+
+\newtcolorbox{definition}[1]{colback=boxbg,colframe=defcol,fonttitle=\bfseries,title={Définition~---~#1}}
+\newtcolorbox{theoreme}[1]{colback=boxbg,colframe=thmcol,fonttitle=\bfseries,title={Résultat~---~#1}}
+\newtcolorbox{postulat}{colback=white,colframe=excol,fonttitle=\bfseries,title=Postulat}
+\newtcolorbox{limite}{colback=white,colframe=warncol,fonttitle=\bfseries,title=Limite assumée}
+\newtcolorbox{remarque}{colback=boxbg,colframe=black!40,fonttitle=\bfseries\itshape,title=Remarque}
+
+\newcommand{\demo}{\par\smallskip\noindent\textbf{Démonstration / dérivation.}\ }
+\newcommand{\qedhere}{\hfill$\blacksquare$\par\smallskip}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Signaux précurseurs performatifs}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+\title{\textbf{Signaux précurseurs performatifs}\\[4pt]
+\large Un premier modèle formel de la réflexivité dans la détection de bascules collectives}
+\author{}
+\date{Septembre 2026}
+
+\begin{document}
+\maketitle
+
+\begin{center}
+\begin{minipage}{0.85\textwidth}
+\small\itshape
+Ce document pose et résout un premier modèle mathématique reliant deux
+champs établis séparément — les signaux précurseurs de bascule
+(ralentissement critique) et la prédiction performative — sans qu'aucun
+travail trouvé ne les combine formellement à ce jour (vérifié par
+recherche approfondie puis par recoupement direct des bibliographies des
+synthèses les plus récentes de chaque champ). Ce n'est pas présenté
+comme une théorie complète de la réflexivité, mais comme un premier
+modèle jouet, dérivé et vérifié numériquement, destiné à servir de point
+de départ à une collaboration ouverte plutôt que comme un résultat
+définitif.
+\end{minipage}
+\end{center}
+
+\tableofcontents
+
+\section{Motivation et positionnement honnête}
+
+Les indicateurs de ralentissement critique (variance, autocorrélation)
+supposent un paramètre de contrôle $\lambda(t)$ purement exogène — le
+système physique ou écologique observé ne «~lit~» jamais
+l'indicateur calculé sur lui-même. Cette hypothèse est raisonnable pour
+un lac ou un plasma. Elle est fausse par construction pour un système
+social observé par un outil comme Hélios : si l'alerte est publiée, les
+acteurs peuvent y réagir, et cette réaction change la trajectoire même
+que l'indicateur cherchait à décrire.
+
+\begin{remarque}
+Ce problème porte un nom en apprentissage automatique — la
+\emph{prédiction performative} (Perdomo, Zrnic, Mendler-Dünner \& Hardt,
+2020) — et un nom informel en économie/finance — la \emph{réflexivité}
+(Soros) ou la \emph{critique de Lucas}. Mais aucun des deux cadres n'a
+été formalisé dans le langage mathématique précis des signaux
+précurseurs (variance, autocorrélation, ralentissement critique). C'est
+exactly le vide que ce document tente de combler, modestement.
+\end{remarque}
+
+\section{État de l'art et positionnement précis}
+
+Une revue approfondie (recherche multi-sources, puis vérification
+directe des bibliographies des deux synthèses les plus récentes de
+chaque champ — Hardt \& Mendler-Dünner, 2025, \emph{Statistical
+Science} ; «~Dissecting Performative Prediction~», 2026) ne trouve
+aucun travail combinant formellement les deux cadres. Les travaux les
+plus proches, chacun d'un seul côté du pont :
+
+\begin{itemize}[leftmargin=1.4em]
+\item \textbf{Diekert, Heyen, Nesje \& Shayegh (2025)}, \emph{J. R. Soc.
+  Interface} — le lien formel le plus proche : un système d'alerte
+  précoce change les décisions d'un planificateur, et peut produire un
+  comportement \emph{plus} risqué en l'absence d'alerte. Un seul
+  décideur rationnel, pas de population réactive, pas de statistique de
+  ralentissement critique.
+\item \textbf{Bauch, Sigdel, Pharaon \& Anand (2016)}, \emph{PNAS} — la
+  rétroaction humaine peut «~atténuer le signal précurseur~»,
+  rendant une bascule à venir plus difficile à détecter, dans un modèle
+  couplé forêt-opinion.
+\item \textbf{Diks, Hommes \& Wang (2019)}, \emph{Empirical Economics} —
+  notent, en une phrase, qu'une crise prédite «~peut causer une
+  réaction de panique des agents et ainsi déclencher une crise à
+  venir encore plus tôt~», sans le formaliser.
+\item \textbf{Sornette (2003)}, \emph{Physics Reports} — liste, de
+  façon informelle, les scénarios où une prédiction publique de krach
+  s'auto-réalise ou s'auto-invalide.
+\item \textbf{Drehmann \& Juselius (2014)}, BIS/\emph{Int. J.
+  Forecasting} — notent qu'un indicateur d'alerte utilisé en politique
+  publique «~deviendra sujet à la critique de Lucas usuelle~», et
+  que la perte de pouvoir prédictif serait «~plutôt un signe de son
+  succès~».
+\end{itemize}
+
+\begin{limite}
+Cette revue s'appuie sur une recherche documentaire, pas sur une base de
+données de citations exhaustive. L'absence de résultat n'est pas une
+preuve d'absence définitive.
+\end{limite}
+
+\section{Le modèle}
+
+\subsection{Rappel du cadre sans rétroaction}
+
+Le modèle de ralentissement critique déjà établi (processus
+d'Ornstein-Uhlenbeck près d'une bifurcation) s'écrit :
+$$dy = \lambda(t)\,y\,dt + \sigma\,dW, \qquad \lambda(t) \to 0^-$$
+avec la variance stationnaire $\text{Var}(y) = \sigma^2/(2|\lambda|)$ et
+l'autocorrélation $\text{AC1} \to 1$ quand $\lambda\to0^-$ — le signal
+précurseur classique. Ce résultat suppose $\lambda(t)$ exogène.
+
+\subsection{Introduire la performativité}
+
+\begin{postulat}
+Un détecteur observe la variance glissante $V_t$ et publie une alerte
+$a_t = A(V_t) \in [0,1]$, une fonction sigmoïde croissante de $V_t$.
+Cette alerte modifie en retour le paramètre de stabilité effectif du
+système :
+$$\lambda_{\text{eff}}(t) = \lambda(t) + \kappa \cdot A(V_t), \qquad A(V) = \frac{1}{1+e^{-k(V-V_c)}}$$
+où $\kappa$ est le \emph{coefficient de rétroaction performative}
+($\kappa<0$ : réponse stabilisatrice/auto-invalidante ; $\kappa>0$ :
+réponse déstabilisatrice/auto-réalisatrice), $k$ la sensibilité de
+l'alerte, $V_c$ le seuil de déclenchement.
+\end{postulat}
+
+\begin{remarque}
+$\kappa$ joue exactement le rôle de la sensibilité $\varepsilon$ dans le
+cadre de Perdomo et al. (le décalage de distribution induit par le
+paramètre du modèle), transposé ici au paramètre de stabilité d'un
+processus stochastique plutôt qu'à une distribution de caractéristiques.
+\end{remarque}
+
+\subsection{L'équation de point fixe}
+
+En régime quasi-stationnaire ($V_t \approx \sigma^2/(2|\lambda_{\text{eff}}|)$,
+séparation d'échelles de temps admise), on obtient une équation implicite
+auto-cohérente pour $\lambda_{\text{eff}}$ :
+$$\lambda_{\text{eff}} = \lambda(t) + \kappa \cdot A\!\left(\frac{\sigma^2}{2|\lambda_{\text{eff}}|}\right)$$
+
+\begin{remarque}
+Structure identique à l'équation d'auto-cohérence de Kuramoto déjà
+résolue pour H4 (§5.8 du cahier des charges Hélios) — le champ moyen
+$r$ y jouait le rôle que joue ici $\lambda_{\text{eff}}$.
+\end{remarque}
+
+\section{Analyse du point fixe}
+
+\begin{theoreme}{Deux régimes qualitativement distincts}
+Selon le signe de $\kappa$, l'équation de point fixe se comporte de deux
+façons radicalement différentes lorsque $\lambda(t)\to0^-$ :
+\begin{itemize}[leftmargin=1.4em]
+\item $\kappa=0$ : $\lambda_{\text{eff}}=\lambda(t)$, on retrouve le cas
+  classique (vérification de cohérence).
+\item $\kappa<0$ (auto-invalidant) : $\lambda_{\text{eff}}$ reste
+  \textbf{borné loin de zéro} même quand $\lambda(t)\to0^-$ — la
+  variance ne diverge plus, elle plafonne.
+\item $\kappa>0$ (auto-réalisateur) : il existe un $\lambda_c(\kappa)<0$
+  tel que \textbf{le point fixe cesse d'exister} pour
+  $\lambda(t)>\lambda_c(\kappa)$ — la bascule (au sens de cette
+  équation) survient avant que le système «~nu~» n'y soit arrivé.
+\end{itemize}
+\end{theoreme}
+
+\demo Résolution numérique par bissection de
+$f(\lambda_{\text{eff}}) = \lambda_{\text{eff}} - \lambda(t) - \kappa A(\sigma^2/2|\lambda_{\text{eff}}|) = 0$,
+pour $\sigma=1$, $k=10$, $V_c=2$ :
+
+\textbf{Cas $\kappa<0$} — extrait ($\kappa=-0{,}1$) :
+\begin{center}
+\begin{tabular}{@{}rrr@{}}
+\toprule
+$\lambda(t)$ & $\lambda_{\text{eff}}$ & $\text{Var}$ \\
+\midrule
+$-1{,}000$ & $-1{,}000$ & $0{,}50$ \\
+$-0{,}100$ & $-0{,}199$ & $2{,}51$ \\
+$-0{,}010$ & $-0{,}110$ & $4{,}55$ \\
+$-0{,}001$ & $-0{,}101$ & $4{,}95$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+Même quand $\lambda(t)$ s'approche de $0$ à $10^{-3}$ près,
+$\lambda_{\text{eff}}$ reste proche de $-0{,}1$ — un \textbf{plancher de
+stabilité performatif}. La divergence classique de la variance
+n'apparaît jamais.
+
+\textbf{Cas $\kappa>0$} — extrait ($\kappa=0{,}05$) :
+\begin{center}
+\begin{tabular}{@{}rl@{}}
+\toprule
+$\lambda(t)$ & Solution \\
+\midrule
+$-0{,}500$ & $\lambda_{\text{eff}}=-0{,}500$ \\
+$-0{,}100$ & $\lambda_{\text{eff}}=-0{,}050$ \\
+$-0{,}050$ & \textbf{pas de solution} \\
+$-0{,}020$ & \textbf{pas de solution} \\
+\bottomrule
+\end{tabular}
+\end{center}
+Le point fixe disparaît entre $\lambda=-0{,}1$ et $\lambda=-0{,}05$ —
+bien avant que le système nu n'atteigne $\lambda=0$. Plus $\kappa$
+augmente, plus $\lambda_c(\kappa)$ s'éloigne de $0$ (bascule anticipée
+plus tôt). \qedhere
+
+\section{Validation par simulation stochastique complète}
+
+L'analyse précédente repose sur l'approximation quasi-stationnaire. Pour
+vérifier qu'elle tient dans un vrai système bruité, avec une variance
+glissante calculée en temps réel sur une fenêtre finie (pas la formule
+fermée), le système complet a été simulé par Euler-Maruyama :
+$$y_{n+1} = y_n + dt\,(\lambda(t_n) + \kappa A(V_n))\,y_n + \sigma\sqrt{dt}\,\xi_n$$
+
+\begin{remarque}[Erreur trouvée et corrigée en cours de route]
+Un premier essai avec une fenêtre glissante de $0{,}5$ unité de temps
+n'a montré \textbf{aucune différence entre les valeurs de $\kappa$} — le
+temps de relaxation du système près de la bifurcation ($\sim 1/|\lambda|$)
+dépasse largement la taille de la fenêtre, donc la variance mesurée
+restait toujours proche de $0$ et l'alerte ne se déclenchait jamais,
+quel que soit $\kappa$. Corrigé en portant la fenêtre à $20$ unités de
+temps (recalibrée en vérifiant que la variance mesurée suit bien la
+prédiction théorique en régime $\kappa=0$ avant de comparer les régimes
+entre eux) — exactement le type d'erreur que ce projet a appris à
+détecter systématiquement plutôt qu'à laisser passer.
+\end{remarque}
+
+\textbf{Résultat} (\textbf{500 réalisations indépendantes} par valeur de
+$\kappa$ — renforcé depuis une première passe à 30 réalisations,
+$\lambda_0=-1$, taux de dérive $0{,}002$, seuil de bascule $|y|>8$) :
+
+\begin{center}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Régime & Bascules & Taux & Temps moyen (écart-type) \\
+\midrule
+$\kappa=0$ (classique) & 318/500 & 63,6\% & 505,3 (14,9) \\
+$\kappa=-0{,}05$ & 116/500 & 23,2\% & 510,6 (13,0) \\
+$\kappa=-0{,}10$ & 58/500 & 11,6\% & 512,5 (10,9) \\
+$\kappa=-0{,}20$ & 13/500 & \textbf{2,6\%} & 508,9 (11,4) \\
+$\kappa=+0{,}02$ & 385/500 & 77,0\% & 501,7 (16,3) \\
+$\kappa=+0{,}05$ & 446/500 & 89,2\% & 492,5 (18,8) \\
+$\kappa=+0{,}08$ & 479/500 & 95,8\% & 485,7 (22,2) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Sensibilité aux paramètres de la fonction d'alerte}
+
+Le résultat qualitatif (monotonie stricte du taux de bascule en fonction
+de $\kappa$) a été revérifié à \textbf{1000 réalisations}, pour 5
+combinaisons de la pente $k$ et du seuil $V_c$ de la fonction d'alerte
+($k\in\{5,10,20\}$, $V_c\in\{1{,}5;\,2;\,2{,}5\}$) : la monotonie tient
+dans les 5 cas, sans exception. Le résultat n'est donc pas un artefact
+d'un choix de paramètres particulier.
+
+\subsection{Extension au modèle de Kuramoto (H4)}
+
+Pour vérifier que le mécanisme n'est pas propre au modèle nœud-col, la
+même construction (alerte $A(r_t)$ sur le paramètre d'ordre $r$ au lieu
+de la variance, $K_{\text{eff}}(t) = K_0(t) + \kappa A(r_t)$) a été
+appliquée au modèle de synchronisation déjà utilisé pour H4 (§5.8) :
+
+\begin{center}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+Régime & Bascules (sur 500) & Temps moyen \\
+\midrule
+$\kappa=0$ (classique) & 500/500 & 141,7 \\
+$\kappa=-0{,}5$ & 500/500 & 273,0 \\
+$\kappa=-1{,}0$ & 495/500 & 402,1 \\
+$\kappa=-2{,}0$ & \textbf{0/500} & — \\
+$\kappa=+0{,}5$ & 500/500 & 50,5 \\
+$\kappa=+1{,}0$ & 500/500 & 22,5 \\
+$\kappa=+2{,}0$ & 500/500 & 12,2 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Même signature qualitative sur une dynamique de nature complètement
+différente (synchronisation collective plutôt qu'une bifurcation
+simple) : plancher de stabilité net côté auto-invalidant, accélération
+monotone côté auto-réalisateur. Le mécanisme ne dépend donc pas du choix
+particulier du modèle sous-jacent.
+
+\begin{limite}
+«~0/30 bascule~» à $\kappa=-0{,}2$ signifie \emph{dans l'horizon
+temporel simulé} (jusqu'à $\lambda(t)=0{,}05$) — pas que la bascule est
+impossible dans l'absolu. Un temps de simulation plus long ou un taux de
+dérive de $\lambda(t)$ plus rapide pourrait finir par forcer la bascule
+même à $\kappa$ très négatif.
+\end{limite}
+
+\section{Limites assumées de ce premier modèle}
+
+\begin{limite}
+\begin{itemize}[leftmargin=1.4em]
+\item Un seul mécanisme de rétroaction est modélisé (réponse linéaire du
+  paramètre de stabilité à une alerte sigmoïde). Les mécanismes de
+  \emph{masquage stratégique} (loi de Goodhart — des acteurs qui
+  suppriment délibérément les fluctuations mesurées) et d'\emph{aléa
+  moral} (comportement plus risqué en l'\emph{absence} d'alerte,
+  Diekert et al.) ne sont pas modélisés ici.
+\item Le détecteur ne se recalibre pas — pas de boucle de ré-entraînement
+  au sens de la «~stabilité performative~» de Perdomo et al.
+  (convergence d'une politique de décision sous minimisation de risque
+  répétée). Ce modèle teste un $\kappa$ fixé, pas la convergence d'un
+  processus d'apprentissage.
+\item Validé sur deux modèles déjà internes à Hélios (nœud-col,
+  Kuramoto), à 500-1000 réalisations, avec vérification de sensibilité
+  aux paramètres de la fonction d'alerte — mais toujours aucun test sur
+  données réelles, aucune relecture par un chercheur extérieur au
+  domaine, et une vérification bibliographique par recoupement de
+  synthèses plutôt que par une base de citations exhaustive
+  (Semantic Scholar / Google Scholar complet).
+\item C'est un premier modèle jouet, pas une théorie de la réflexivité
+  sociale. Présenté comme point de départ pour une collaboration plus
+  large, pas comme un résultat clos.
+\end{itemize}
+\end{limite}
+
+\section{Prochaines étapes possibles}
+
+\begin{enumerate}[leftmargin=1.4em]
+\item Formaliser le mécanisme de masquage stratégique (Goodhart) comme
+  second modèle, complémentaire à celui-ci.
+\item Étudier la convergence d'un détecteur qui recalibre son seuil
+  $V_c$ à partir des données déjà influencées par ses propres alertes
+  passées — la vraie notion de «~stabilité performative~» au sens
+  de Perdomo et al., pas seulement un $\kappa$ fixe.
+\item Tester sur un vrai jeu de données où la réflexivité est plausible
+  et où des signaux de type ralentissement critique ont déjà été
+  cherchés — les marchés financiers (Diks, Hommes \& Wang, 2019 ;
+  Guttal et al., 2016) sont le candidat le plus direct.
+\item Décision ouverte : héberger ce travail comme extension d'Hélios,
+  ou comme projet et interface séparés, étant donné sa nature plus
+  spéculative et son statut de première tentative sur un vide de
+  recherche identifié plutôt que d'application d'une méthode établie.
+\end{enumerate}
+
+\section*{Références}
+\begin{itemize}[leftmargin=1.2em]
+\item Perdomo, J., Zrnic, T., Mendler-Dünner, C., \& Hardt, M. (2020). "Performative Prediction." *ICML 2020*, PMLR 119.
+\item Hardt, M., \& Mendler-Dünner, C. (2025). "Performative Prediction: Past and Future." *Statistical Science*, 40(3), 417–436.
+\item Diekert, F., Heyen, D., Nesje, F., \& Shayegh, S. (2025). "Do early warning signals of tipping points lead to better decisions?" *Journal of the Royal Society Interface*, 22(225), 20240864.
+\item Bauch, C. T., Sigdel, R., Pharaon, J., \& Anand, M. (2016). "Early warning signals of regime shifts in coupled human–environment systems." *PNAS*, 113(51), 14560–14567.
+\item Diks, C., Hommes, C., \& Wang, J. (2019). "Critical slowing down as an early warning signal for financial crises?" *Empirical Economics*, 57(4), 1201–1228.
+\item Sornette, D. (2003). "Critical market crashes." *Physics Reports*, 378, 1–98.
+\item Drehmann, M., \& Juselius, M. (2014). "Evaluating early warning indicators of banking crises: Satisfying policy requirements." *International Journal of Forecasting*, 30(3).
+\item Scheffer, M. et al. (2009). "Early-warning signals for critical transitions." *Nature*, 461, 53–59.
+\item Guttal, V., Raghavendra, S., Goel, N., \& Hoarau, Q. (2016). "Lack of Critical Slowing Down Suggests that Financial Meltdowns Are Not Critical Transitions, yet Rising Variability Could Signal Systemic Risk." *PLoS ONE*, 11(1), e0144198.
+\end{itemize}
+
+\end{document}
