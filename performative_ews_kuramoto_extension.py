@@ -54,7 +54,7 @@ if __name__ == "__main__":
     print(f"=== Extension Kuramoto : {n_trials} graines par kappa ===")
     print(f"{'kappa':>10} {'bascules':>12} {'taux':>8} {'t_moy':>10}")
     for kappa in [0.0, -0.5, -1.0, -2.0, 0.5, 1.0, 2.0]:
-        tipped, tipped_at, max_r = simulate_kuramoto_batch(kappa, n_trials, seed=hash(kappa) % (2**31))
+        tipped, tipped_at, max_r = simulate_kuramoto_batch(kappa, n_trials, seed=42)
         n_tip = tipped.sum()
         rate_tip = n_tip/n_trials
         valid_times = tipped_at[tipped]

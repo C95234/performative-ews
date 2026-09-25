@@ -245,33 +245,71 @@ détecter systématiquement plutôt qu'à laisser passer.
 \end{remarque}
 
 \textbf{Résultat} (\textbf{500 réalisations indépendantes} par valeur de
-$\kappa$ — renforcé depuis une première passe à 30 réalisations,
-$\lambda_0=-1$, taux de dérive $0{,}002$, seuil de bascule $|y|>8$) :
+$\kappa$, graine de base explicite $=42$ — reproductible, pas de
+dérivation informelle par fonction de hachage —, $\lambda_0=-1$, taux de
+dérive $0{,}002$, seuil de bascule $|y|>8$) :
 
 \begin{center}
 \begin{tabular}{@{}lrrr@{}}
 \toprule
 Régime & Bascules & Taux & Temps moyen (écart-type) \\
 \midrule
-$\kappa=0$ (classique) & 318/500 & 63,6\% & 505,3 (14,9) \\
-$\kappa=-0{,}05$ & 116/500 & 23,2\% & 510,6 (13,0) \\
-$\kappa=-0{,}10$ & 58/500 & 11,6\% & 512,5 (10,9) \\
-$\kappa=-0{,}20$ & 13/500 & \textbf{2,6\%} & 508,9 (11,4) \\
-$\kappa=+0{,}02$ & 385/500 & 77,0\% & 501,7 (16,3) \\
-$\kappa=+0{,}05$ & 446/500 & 89,2\% & 492,5 (18,8) \\
-$\kappa=+0{,}08$ & 479/500 & 95,8\% & 485,7 (22,2) \\
+$\kappa=0$ (classique) & 317/500 & 63,4\% & 504,2 (15,7) \\
+$\kappa=-0{,}05$ & 162/500 & 32,4\% & 508,5 (14,3) \\
+$\kappa=-0{,}10$ & 51/500 & 10,2\% & 510,9 (13,6) \\
+$\kappa=-0{,}20$ & 15/500 & \textbf{3,0\%} & 509,6 (12,6) \\
+$\kappa=+0{,}02$ & 373/500 & 74,6\% & 499,3 (16,9) \\
+$\kappa=+0{,}05$ & 442/500 & 88,4\% & 493,0 (19,1) \\
+$\kappa=+0{,}08$ & 480/500 & 96,0\% & 483,9 (20,8) \\
 \bottomrule
 \end{tabular}
 \end{center}
 
+\begin{remarque}[Vérification de l'absence de bistabilité cachée]
+L'analyse du \S4 repose sur une résolution par bissection, qui suppose
+implicitement une seule racine dans l'intervalle testé. Pour écarter
+l'hypothèse d'un pli à deux solutions (bistabilité/hystérésis) que la
+bissection aurait pu manquer, la fonction résiduelle a été scannée
+finement (jusqu'à 20 000 points, avec un zoom à 21 points entre
+$\lambda=-0{,}06$ et $-0{,}05$) autour de la zone de transition pour
+$\kappa=0{,}05$. Résultat : exactement une racine jusqu'à
+$\lambda\approx-0{,}0505$, puis zéro — un vrai pli net (tangence),
+aucune fenêtre à deux solutions cachée. La caractérisation du \S4 est
+donc confirmée, pas seulement supposée.
+\end{remarque}
+
 \subsection{Sensibilité aux paramètres de la fonction d'alerte}
 
-Le résultat qualitatif (monotonie stricte du taux de bascule en fonction
-de $\kappa$) a été revérifié à \textbf{1000 réalisations}, pour 5
+Le résultat qualitatif (monotonie du taux de bascule en fonction de
+$\kappa$) a été revérifié à \textbf{1000 réalisations}, pour 5
 combinaisons de la pente $k$ et du seuil $V_c$ de la fonction d'alerte
 ($k\in\{5,10,20\}$, $V_c\in\{1{,}5;\,2;\,2{,}5\}$) : la monotonie tient
-dans les 5 cas, sans exception. Le résultat n'est donc pas un artefact
-d'un choix de paramètres particulier.
+dans les 5 cas.
+
+\begin{remarque}[Nuance nécessaire — monotonie au sens large, pas stricte partout]
+Un test de sensibilité complémentaire au \textbf{seuil de bascule
+lui-même} ($|y|>y_{\text{thresh}}$, jusqu'ici jamais testé) montre que la
+monotonie stricte ne tient qu'à $y_{\text{thresh}}=8$. À
+$y_{\text{thresh}}=12$ (seuil élevé), $\kappa=-0{,}1$ et $\kappa=-0{,}2$
+donnent tous deux $0{,}0\%$ — un effet de plancher (les deux régimes
+empêchent totalement la bascule dans l'horizon simulé), pas une
+inversion de tendance, mais qui rompt la stricte monotonie affichée sans
+nuance dans une première version de ce document. Le résultat correct à
+retenir : \textbf{monotonie au sens large (jamais d'inversion), avec
+saturation possible aux seuils extrêmes} — pas une monotonie stricte
+inconditionnelle.
+\begin{center}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+$y_{\text{thresh}}$ & $\kappa{=}0$ & $\kappa{=}{-}0{,}1$ & $\kappa{=}{-}0{,}2$ & $\kappa{=}{+}0{,}05$ & $\kappa{=}{+}0{,}08$ \\
+\midrule
+5  & 97,8\% & 83,4\% & 72,8\% & 99,6\% & 99,6\% \\
+8  & 63,4\% & 10,2\% & 3,0\%  & 88,4\% & 96,0\% \\
+12 & 35,8\% & 0,0\%  & 0,0\%  & 82,4\% & 93,8\% \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{remarque}
 
 \subsection{Extension au modèle de Kuramoto (H4)}
 
@@ -295,6 +333,23 @@ $\kappa=+2{,}0$ & 500/500 & 12,2 \\
 \bottomrule
 \end{tabular}
 \end{center}
+
+\begin{remarque}[Asymétrie trouvée lors d'une relecture critique — à ne pas passer sous silence]
+Contrairement à ce qu'une première lecture du tableau ci-dessus suggère,
+les deux régimes ne sont \textbf{pas confirmés symétriquement} sur ce
+modèle. Un test de sensibilité au seuil de bascule
+$r_{\text{tip}}\in\{0{,}6;\,0{,}7;\,0{,}8\}$ (200 réalisations, régime
+auto-réalisateur) montre que le \emph{taux} de bascule sature à $100\%$
+dès $\kappa=+1$, quel que soit $r_{\text{tip}}$ testé — seul le
+\emph{délai moyen} continue à discriminer entre les valeurs de $\kappa$
+côté auto-réalisateur. Le mécanisme auto-invalidant, lui, discrimine
+bien à la fois sur le taux et sur le délai (voir $\kappa=-2$, effondrement
+net du taux). \textbf{À retenir} : sur Kuramoto, c'est la variable
+temporelle qui porte l'essentiel du signal auto-réalisateur, pas le taux
+de bascule — une asymétrie réelle entre les deux modèles testés, qui
+n'existe pas sur le nœud-col (où taux \emph{et} délai discriminent des
+deux côtés).
+\end{remarque}
 
 Même signature qualitative sur une dynamique de nature complètement
 différente (synchronisation collective plutôt qu'une bifurcation
