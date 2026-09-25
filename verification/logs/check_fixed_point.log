@@ -1,0 +1,44 @@
+=== Reproduction independante du tableau kappa=-0.1 (auto-invalidant) ===
+  lambda(t)=-1.000 : 1 racine(s) -> ['-1.0000']  Var=['0.50']
+  lambda(t)=-0.100 : 1 racine(s) -> ['-0.1994']  Var=['2.51']
+  lambda(t)=-0.010 : 1 racine(s) -> ['-0.1100']  Var=['4.55']
+  lambda(t)=-0.001 : 1 racine(s) -> ['-0.1010']  Var=['4.95']
+
+=== Reproduction independante du tableau kappa=+0.05 (auto-realisateur) ===
+  lambda(t)=-0.500 : 1 racine(s) -> ['-0.5000']
+  lambda(t)=-0.100 : 1 racine(s) -> ['-0.0500']
+  lambda(t)=-0.050 : 0 racine(s) -> AUCUNE SOLUTION
+  lambda(t)=-0.020 : 0 racine(s) -> AUCUNE SOLUTION
+
+=== Scan fin autour du seuil de disparition annonce (kappa=+0.05, entre -0.06 et -0.05) ===
+  lambda(t)=-0.06000 : 1 racine(s)
+  lambda(t)=-0.05950 : 1 racine(s)
+  lambda(t)=-0.05900 : 1 racine(s)
+  lambda(t)=-0.05850 : 1 racine(s)
+  lambda(t)=-0.05800 : 1 racine(s)
+  lambda(t)=-0.05750 : 1 racine(s)
+  lambda(t)=-0.05700 : 1 racine(s)
+  lambda(t)=-0.05650 : 1 racine(s)
+  lambda(t)=-0.05600 : 1 racine(s)
+  lambda(t)=-0.05550 : 1 racine(s)
+  lambda(t)=-0.05500 : 1 racine(s)
+  lambda(t)=-0.05450 : 1 racine(s)
+  lambda(t)=-0.05400 : 1 racine(s)
+  lambda(t)=-0.05350 : 1 racine(s)
+  lambda(t)=-0.05300 : 1 racine(s)
+  lambda(t)=-0.05250 : 1 racine(s)
+  lambda(t)=-0.05200 : 1 racine(s)
+  lambda(t)=-0.05150 : 1 racine(s)
+  lambda(t)=-0.05100 : 1 racine(s)
+  lambda(t)=-0.05050 : 1 racine(s)
+  lambda(t)=-0.05000 : 0 racine(s)
+
+=== Balayage plus large de kappa>0 : lambda_c(kappa) (premier lambda(t) sans solution) ===
+  kappa=+0.01 : lambda_c approx = -0.009601900475118663
+  kappa=+0.02 : lambda_c approx = -0.019603900975243782
+  kappa=+0.05 : lambda_c approx = -0.04960990247561892
+  kappa=+0.08 : lambda_c approx = -0.07961590397599383
+  kappa=+0.10 : lambda_c approx = -0.09961990497624407
+  kappa=+0.15 : lambda_c approx = -0.14962990747686922
+
+[exited with code 0]

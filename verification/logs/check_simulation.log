@@ -1,0 +1,16 @@
+=== Contre-verification independante (500 graines, seed0=10000, jamais utilisees par les scripts fournis) ===
+     kappa     bascules     taux      t_moy     t_sd
+0 (classique)   308/500     61.6%      504.2     14.1
+     -0.05   154/500     30.8%      511.8     12.1
+     -0.10    48/500      9.6%      513.5     10.4
+     -0.20     7/500      1.4%      513.9      6.4
+     +0.02   386/500     77.2%      501.6     16.4
+     +0.05   436/500     87.2%      492.5     18.7
+     +0.08   479/500     95.8%      484.0     23.2
+
+Temps ecoule: 44.9s
+
+Monotonie stricte sur cette implementation INDEPENDANTE : True
+  sequence : ['1.4%', '9.6%', '30.8%', '61.6%', '77.2%', '87.2%', '95.8%']
+
+[exited with code 0]

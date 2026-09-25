@@ -1,0 +1,33 @@
+=== Contre-verification independante Kuramoto (500 graines, seed0=20000) ===
+     kappa     bascules     taux      t_moy
+0 (classique)   500/500    100.0%      144.9
+     -0.50   500/500    100.0%      273.6
+     -1.00   496/500     99.2%      403.0
+     -2.00     0/500      0.0%        nan
+     +0.50   500/500    100.0%       50.8
+     +1.00   500/500    100.0%       23.1
+     +2.00   500/500    100.0%       12.6
+
+Temps ecoule: 147.7s
+
+=== Sensibilite au seuil r_tip (l'asymetrie documentee dans le §0bis) ===
+--- r_tip=0.6 ---
+    kappa=-2.0 : 43/200 (21.5%)
+    kappa=-1.0 : 200/200 (100.0%)
+    kappa=+0.0 : 200/200 (100.0%)
+    kappa=+1.0 : 200/200 (100.0%)
+    kappa=+2.0 : 200/200 (100.0%)
+--- r_tip=0.7 ---
+    kappa=-2.0 : 0/200 (0.0%)
+    kappa=-1.0 : 200/200 (100.0%)
+    kappa=+0.0 : 200/200 (100.0%)
+    kappa=+1.0 : 200/200 (100.0%)
+    kappa=+2.0 : 200/200 (100.0%)
+--- r_tip=0.8 ---
+    kappa=-2.0 : 0/200 (0.0%)
+    kappa=-1.0 : 127/200 (63.5%)
+    kappa=+0.0 : 200/200 (100.0%)
+    kappa=+1.0 : 200/200 (100.0%)
+    kappa=+2.0 : 200/200 (100.0%)
+
+[exited with code 0]
