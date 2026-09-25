@@ -24,6 +24,8 @@ Ce résultat est vérifié par simulation stochastique complète (Euler-Maruyama
 
 Le détail complet (dérivations, tableaux de résultats, code annoté) est dans [`performative_ews.pdf`](performative_ews.pdf) / [`performative_ews.tex`](performative_ews.tex). Les scripts de validation (`performative_ews_validation_500_1000.py`, `performative_ews_kuramoto_extension.py`) reproduisent exactement les chiffres cités dans le document.
 
+**Vérification indépendante :** [`VERIFICATION.md`](VERIFICATION.md) documente une contre-vérification par un second système (ré-implémentations *from scratch*, graines disjointes) — code dans [`verification/`](verification/). Les résultats numériques principaux sont confirmés ; une limite nouvelle est identifiée sur la validité de l'approximation quasi-stationnaire près de la bifurcation.
+
 ## Précurseurs directs
 
 Aucun des travaux ci-dessous ne combine formellement les deux champs — chacun se situe d'un seul côté du pont que ce document tente d'esquisser :
