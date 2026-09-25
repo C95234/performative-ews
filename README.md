@@ -1,5 +1,7 @@
 # Signaux précurseurs performatifs
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22967910.svg)](https://doi.org/10.5281/zenodo.22967910)
+
 **Auteur :** Clément Marin — septembre 2026
 **Statut : premier brouillon, non relu par un tiers extérieur au domaine, cohérence mathématique en cours de vérification.** Ceci n'est pas présenté comme une théorie aboutie de la réflexivité sociale, ni comme une découverte, mais comme un premier modèle jouet, dérivé et vérifié numériquement, destiné à servir de point de départ à une discussion ouverte.
 
